@@ -271,6 +271,24 @@ h2 {
   margin-bottom: 0;
 }
 
+.social-links {
+  margin: 24px 0 0;
+}
+
+.social-links h3 {
+  margin: 0 0 10px;
+  color: var(--color-accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+}
+
 .trial-form {
   margin-top: 26px;
   padding-top: 22px;
@@ -437,6 +455,12 @@ h2 {
 .section-intro {
   max-width: 680px;
   margin: -8px 0 20px;
+}
+
+.section-subtitle {
+  color: var(--color-accent);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.2rem, 2.1vw, 1.45rem);
 }
 
 .section-label {
