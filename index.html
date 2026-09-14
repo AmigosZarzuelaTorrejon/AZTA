@@ -9,6 +9,7 @@
     >
     <title>Amigos de la Zarzuela de Torrejón de Ardoz</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -97,6 +98,51 @@
 
         <details class="accordion-item">
           <summary>
+            <span>Ven a probar un ensayo</span>
+          </summary>
+          <div class="accordion-content">
+            <p>
+              ¿Te apetece conocernos? Puedes venir a probar uno de nuestros
+              ensayos sin compromiso. Ensayamos los lunes y miércoles de 19:30
+              a 21:15 en el C. C. Las Fronteras.
+            </p>
+            <p>
+              Déjanos tus datos y abriremos WhatsApp con un mensaje preparado
+              para que puedas escribirnos directamente.
+            </p>
+
+            <form class="trial-form" id="trial-form" novalidate>
+              <div class="form-grid">
+                <label class="form-field" for="trial-name">
+                  <span>Nombre</span>
+                  <input id="trial-name" name="name" type="text" autocomplete="name" required>
+                </label>
+
+                <label class="form-field" for="trial-phone">
+                  <span>Teléfono</span>
+                  <input id="trial-phone" name="phone" type="tel" autocomplete="tel">
+                </label>
+
+                <label class="form-field form-field-wide" for="trial-date">
+                  <span>¿Qué día quieres venir?</span>
+                  <input id="trial-date" name="date" type="date" required>
+                </label>
+              </div>
+
+              <p class="form-message" id="trial-form-message" role="alert" aria-live="polite"></p>
+
+              <button class="form-submit" type="submit">Quiero venir →</button>
+
+              <p class="privacy-note">
+                Estos datos no se almacenan en esta web. Al continuar, se abrirá
+                WhatsApp para que puedas enviarnos el mensaje.
+              </p>
+            </form>
+          </div>
+        </details>
+
+        <details class="accordion-item">
+          <summary>
             <span>Información y contacto</span>
           </summary>
           <div class="accordion-content">
@@ -122,7 +168,12 @@
               </div>
               <div>
                 <h3>Teléfono</h3>
-                <p>+34 620 88 75 02</p>
+                <p>
+                  +34 620 88 75 02<br>
+                  <a class="inline-link" href="https://wa.me/34620887502" target="_blank" rel="noopener noreferrer">
+                    Escribir por WhatsApp →
+                  </a>
+                </p>
               </div>
             </div>
             <p class="contact-note">
