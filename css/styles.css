@@ -54,6 +54,10 @@ a {
   border-bottom: 1px solid var(--color-line);
 }
 
+.topbar-simple {
+  justify-content: flex-end;
+}
+
 .brand-link {
   display: inline-flex;
   align-items: center;
@@ -61,8 +65,8 @@ a {
 }
 
 .brand-logo {
-  width: 76px;
-  height: 76px;
+  width: 92px;
+  height: 92px;
   object-fit: cover;
 }
 
@@ -79,8 +83,27 @@ a {
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   max-width: 780px;
   padding-top: 72px;
+}
+
+.hero > :not(.hero-watermark) {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-watermark {
+  position: absolute;
+  top: 18px;
+  left: -34px;
+  z-index: 0;
+  width: clamp(210px, 30vw, 280px);
+  height: auto;
+  opacity: 0.12;
+  pointer-events: none;
+  user-select: none;
 }
 
 .compact-header .hero {
@@ -176,6 +199,11 @@ h2 {
   font-size: 1.05rem;
 }
 
+.accordion-content strong {
+  color: var(--color-text);
+  font-weight: 650;
+}
+
 .accordion-content p {
   margin: 0 0 18px;
 }
@@ -193,6 +221,67 @@ h2 {
 
 .simple-list li::marker {
   color: var(--color-accent);
+}
+
+.video-intro {
+  color: var(--color-text);
+}
+
+.video-embed {
+  width: min(100%, 680px);
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface);
+}
+
+.video-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.contact-details {
+  display: grid;
+  gap: 22px;
+  margin: 26px 0;
+}
+
+.contact-details h3 {
+  margin: 0 0 6px;
+  color: var(--color-accent);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-details p,
+.contact-note {
+  margin-bottom: 0;
+}
+
+.contact-logos {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.contact-logo {
+  display: block;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.82;
+}
+
+.association-logo {
+  height: 88px;
+}
+
+.town-logo {
+  max-width: 210px;
+  max-height: 82px;
 }
 
 .video-placeholder {
@@ -252,13 +341,20 @@ h2 {
   }
 
   .brand-logo {
-    width: 58px;
-    height: 58px;
+    width: 68px;
+    height: 68px;
   }
 
   .hero,
   .compact-header .hero {
     padding-top: 48px;
+  }
+
+  .hero-watermark {
+    top: 26px;
+    left: -22px;
+    width: 155px;
+    opacity: 0.1;
   }
 
   .eyebrow {
@@ -278,5 +374,20 @@ h2 {
 
   .accordion-content {
     padding-bottom: 32px;
+  }
+
+  .contact-logos {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
+
+  .association-logo {
+    height: 76px;
+  }
+
+  .town-logo {
+    max-width: min(210px, 100%);
+    max-height: 72px;
   }
 }
