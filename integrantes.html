@@ -7,96 +7,128 @@
       name="description"
       content="Área de integrantes de la asociación Amigos de la Zarzuela de Torrejón de Ardoz."
     >
+    <meta name="robots" content="noindex, nofollow">
     <title>Integrantes | Amigos de la Zarzuela de Torrejón de Ardoz</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/main.js" defer></script>
   </head>
   <body>
-    <header class="site-header">
-      <nav class="topbar" aria-label="Navegación principal">
-        <a class="nav-link" href="index.html">← Volver al inicio</a>
-      </nav>
+    <section class="member-access" id="member-access" aria-labelledby="member-access-title">
+      <div class="member-access-panel">
+        <p class="eyebrow">Área privada</p>
+        <h1 id="member-access-title">Área de integrantes</h1>
+        <p class="member-access-text">Introduce la contraseña para acceder.</p>
 
-      <div class="hero">
-        <img
-          class="hero-watermark"
-          src="img/¡Mira mi nuevo diseño hecho en Canva!.png"
-          alt=""
-          aria-hidden="true"
-        >
-        <p class="eyebrow">Área de integrantes</p>
-        <h1>Zona de integrantes</h1>
-        <p class="hero-subtitle">
-          Ensayos, calendario y materiales compartidos para preparar nuestra actividad.
-        </p>
+        <form class="member-access-form" id="member-access-form" novalidate>
+          <label class="form-field" for="member-password">
+            <span>Contraseña</span>
+            <input
+              id="member-password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+          </label>
+          <p class="form-message" id="member-access-message" role="alert" aria-live="polite"></p>
+          <button class="form-submit" type="submit">Entrar</button>
+        </form>
       </div>
-    </header>
+    </section>
 
-    <main class="page-content member-page">
-      <section class="content-section" id="esta-semana" data-week-source="apps-script">
-        <h2>Esta semana</h2>
-        <div class="week-focus">
-          <article class="week-item" data-week-day="monday">
-            <p class="section-label">Lunes</p>
-            <div class="week-event" data-week-content aria-live="polite"></div>
-          </article>
+    <div class="members-content" id="members-content" hidden>
+      <header class="site-header">
+        <nav class="topbar" aria-label="Navegación principal">
+          <a class="nav-link" href="index.html">← Volver al inicio</a>
+        </nav>
 
-          <article class="week-item" data-week-day="wednesday">
-            <p class="section-label">Miércoles</p>
-            <div class="week-event" data-week-content aria-live="polite"></div>
-          </article>
-        </div>
-      </section>
-
-      <section class="content-section">
-        <h2>Calendario</h2>
-        <p class="section-intro">
-          Ensayos, actuaciones y otras fechas de la asociación.
-        </p>
-        <div class="calendar-embed">
-          <iframe
-            src="https://calendar.google.com/calendar/embed?src=07d0042aa230372ded3dc400e4441508dd71499ca6882db26e40c9aad42a04fe%40group.calendar.google.com&ctz=Europe%2FMadrid&mode=WEEK&wkst=2"
-            title="Calendario de Amigos de la Zarzuela de Torrejón de Ardoz"
-            loading="lazy"
-          ></iframe>
-        </div>
-      </section>
-
-      <section class="content-section rehearsal-material">
-        <h2>¡Repasa!</h2>
-        <p class="section-subtitle">Material de ensayo</p>
-        <p>
-          Partituras, letras, grabaciones y otros materiales compartidos para
-          los ensayos.
-        </p>
-        <a
-          class="text-button"
-          href="https://drive.google.com/drive/folders/1-8gp-qmAV8i_ZvXIL0UbWOfRlwRMqQin?usp=sharing"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Abrir material de ensayo →
-        </a>
-      </section>
-
-      <section class="institutional-logos" aria-label="Logos institucionales">
-        <div class="contact-logos">
+        <div class="hero">
           <img
-            class="contact-logo association-logo"
+            class="hero-watermark"
             src="img/¡Mira mi nuevo diseño hecho en Canva!.png"
-            alt="AZTA"
+            alt=""
+            aria-hidden="true"
           >
-          <img
-            class="contact-logo town-logo"
-            src="img/A4 Nuevo logo Ayuntamiento monocolor vertical.png"
-            alt="Ayuntamiento de Torrejón de Ardoz"
-          >
+          <p class="eyebrow">Área de integrantes</p>
+          <h1>Zona de integrantes</h1>
+          <p class="hero-subtitle">
+            Ensayos, calendario y materiales compartidos para preparar nuestra actividad.
+          </p>
         </div>
-      </section>
-    </main>
+      </header>
 
-    <footer class="site-footer">
-      <p>Amigos de la Zarzuela de Torrejón de Ardoz</p>
-    </footer>
+      <main class="page-content member-page">
+        <section class="content-section" id="esta-semana" data-week-source="apps-script">
+          <h2>Esta semana</h2>
+          <div class="week-focus">
+            <article class="week-item" data-week-day="monday">
+              <p class="section-label">Lunes</p>
+              <div class="week-event-content">
+                <h3 class="week-event-title" data-week-title></h3>
+                <p class="week-event-description" data-week-description></p>
+              </div>
+            </article>
+
+            <article class="week-item" data-week-day="wednesday">
+              <p class="section-label">Miércoles</p>
+              <div class="week-event-content">
+                <h3 class="week-event-title" data-week-title></h3>
+                <p class="week-event-description" data-week-description></p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Calendario</h2>
+          <p class="section-intro">
+            Ensayos, actuaciones y otras fechas de la asociación.
+          </p>
+          <div class="calendar-embed">
+            <iframe
+              src="https://calendar.google.com/calendar/embed?src=07d0042aa230372ded3dc400e4441508dd71499ca6882db26e40c9aad42a04fe%40group.calendar.google.com&ctz=Europe%2FMadrid&mode=WEEK&wkst=2"
+              title="Calendario de Amigos de la Zarzuela de Torrejón de Ardoz"
+              loading="lazy"
+            ></iframe>
+          </div>
+        </section>
+
+        <section class="content-section rehearsal-material">
+          <h2>¡Repasa!</h2>
+          <p class="section-subtitle">Material de ensayo</p>
+          <p>
+            Partituras, letras, grabaciones y otros materiales compartidos para
+            los ensayos.
+          </p>
+          <a
+            class="text-button"
+            href="https://drive.google.com/drive/folders/1-8gp-qmAV8i_ZvXIL0UbWOfRlwRMqQin?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Abrir material de ensayo →
+          </a>
+        </section>
+
+        <section class="institutional-logos" aria-label="Logos institucionales">
+          <div class="contact-logos">
+            <img
+              class="contact-logo association-logo"
+              src="img/¡Mira mi nuevo diseño hecho en Canva!.png"
+              alt="AZTA"
+            >
+            <img
+              class="contact-logo town-logo"
+              src="img/A4 Nuevo logo Ayuntamiento monocolor vertical.png"
+              alt="Ayuntamiento de Torrejón de Ardoz"
+            >
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Amigos de la Zarzuela de Torrejón de Ardoz</p>
+      </footer>
+    </div>
   </body>
 </html>

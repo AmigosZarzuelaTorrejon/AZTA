@@ -1,7 +1,10 @@
 const WHATSAPP_URL = "https://wa.me/34620887502";
 const WEEKLY_CALENDAR_SCRIPT_URL =
-  "PASTE_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE";
+  "https://script.google.com/macros/s/AKfycbwaK5dtcqMuVIH0tUEofI_kAVgDhHquo8_vi5Il6BN8VoBFvPzh5QpvyVpl7knU-rD_Bw/exec";
 const WEEKLY_CALENDAR_CALLBACK = "AZTAWeeklyCalendarCallback";
+const MEMBER_ACCESS_STORAGE_KEY = "azta-member-access";
+const MEMBER_PASSWORD_HASH =
+  "2243b4221c3cb18edb5812254414baa771bd90789f30c506b9fb2f527c804066";
 
 function formatDateForMessage(value) {
   if (!value) return "";
@@ -58,85 +61,123 @@ function initTrialForm() {
   });
 }
 
-function createTextElement(tag, className, text) {
-  const element = document.createElement(tag);
-  element.className = className;
-  element.textContent = text;
-  return element;
+async function sha256(value) {
+  const data = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, "0"))
+    .join("");
 }
 
-function formatEventTime(event) {
-  if (event.start && event.end) {
-    return `${event.start} – ${event.end}`;
+function renderWeeklyDay(dayName, dayData) {
+  const day = document.querySelector(`[data-week-day="${dayName}"]`);
+  if (!day) return;
+
+  const titleElement = day.querySelector("[data-week-title]");
+  const descriptionElement = day.querySelector("[data-week-description]");
+
+  if (titleElement) {
+    titleElement.textContent = dayData?.title?.trim() || "";
   }
 
-  return event.start || event.end || "";
-}
-
-function renderWeeklyEvent(dayName, dayData) {
-  const container = document.querySelector(
-    `[data-week-day="${dayName}"] [data-week-content]`,
-  );
-  if (!container) return;
-
-  container.textContent = "";
-
-  const event = Array.isArray(dayData?.events) ? dayData.events[0] : null;
-  if (!event) return;
-
-  const title = event.title?.trim();
-  const time = formatEventTime(event).trim();
-  const description = event.description?.trim();
-
-  if (title) {
-    container.append(createTextElement("h3", "week-event-title", title));
-  }
-
-  if (time) {
-    container.append(createTextElement("p", "week-event-time", time));
-  }
-
-  if (description) {
-    container.append(
-      createTextElement("p", "week-event-description", description),
-    );
+  if (descriptionElement) {
+    descriptionElement.textContent = dayData?.description?.trim() || "";
   }
 }
 
 function renderWeeklyCalendar(data) {
   if (!data?.ok) return;
 
-  renderWeeklyEvent("monday", data.monday);
-  renderWeeklyEvent("wednesday", data.wednesday);
+  renderWeeklyDay("monday", data.monday);
+  renderWeeklyDay("wednesday", data.wednesday);
+}
+
+function clearWeeklyCalendar() {
+  document
+    .querySelectorAll("[data-week-title], [data-week-description]")
+    .forEach((element) => {
+      element.textContent = "";
+    });
 }
 
 function initWeeklyCalendar() {
-  const weeklySection = document.querySelector("#esta-semana");
-  if (!weeklySection) return;
+  const section = document.querySelector("#esta-semana");
+  if (!section) return;
 
-  weeklySection
-    .querySelectorAll("[data-week-content]")
-    .forEach((container) => {
-      container.textContent = "";
-    });
-
+  clearWeeklyCalendar();
   window[WEEKLY_CALENDAR_CALLBACK] = renderWeeklyCalendar;
-
-  if (
-    !WEEKLY_CALENDAR_SCRIPT_URL ||
-    WEEKLY_CALENDAR_SCRIPT_URL === "PASTE_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE"
-  ) {
-    return;
-  }
 
   const script = document.createElement("script");
   const separator = WEEKLY_CALENDAR_SCRIPT_URL.includes("?") ? "&" : "?";
-  script.src = `${WEEKLY_CALENDAR_SCRIPT_URL}${separator}callback=${encodeURIComponent(WEEKLY_CALENDAR_CALLBACK)}`;
+
+  script.src =
+    `${WEEKLY_CALENDAR_SCRIPT_URL}` +
+    `${separator}callback=${encodeURIComponent(WEEKLY_CALENDAR_CALLBACK)}` +
+    `&_=${Date.now()}`;
   script.async = true;
+  script.onload = () => {
+    script.remove();
+  };
+  script.onerror = () => {
+    console.warn("AZTA: no se pudo cargar la información semanal.");
+    script.remove();
+  };
+
   document.head.append(script);
+}
+
+function showMembersContent() {
+  const accessSection = document.querySelector("#member-access");
+  const membersContent = document.querySelector("#members-content");
+
+  if (accessSection) {
+    accessSection.hidden = true;
+  }
+
+  if (membersContent) {
+    membersContent.hidden = false;
+  }
+
+  document.body.classList.add("member-authenticated");
+  initWeeklyCalendar();
+}
+
+function initMemberAccess() {
+  const accessForm = document.querySelector("#member-access-form");
+  const membersContent = document.querySelector("#members-content");
+  if (!accessForm || !membersContent) return;
+
+  const passwordField = accessForm.querySelector("#member-password");
+  const messageBox = accessForm.querySelector("#member-access-message");
+
+  if (sessionStorage.getItem(MEMBER_ACCESS_STORAGE_KEY) === "true") {
+    showMembersContent();
+    return;
+  }
+
+  accessForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const password = passwordField.value;
+    const passwordHash = await sha256(password);
+
+    if (passwordHash === MEMBER_PASSWORD_HASH) {
+      sessionStorage.setItem(MEMBER_ACCESS_STORAGE_KEY, "true");
+      passwordField.value = "";
+      passwordField.removeAttribute("aria-invalid");
+      messageBox.textContent = "";
+      showMembersContent();
+      return;
+    }
+
+    passwordField.setAttribute("aria-invalid", "true");
+    messageBox.textContent = "Contraseña incorrecta.";
+    passwordField.focus();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   initTrialForm();
-  initWeeklyCalendar();
+  initMemberAccess();
 });

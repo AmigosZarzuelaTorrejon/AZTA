@@ -160,6 +160,40 @@ h2 {
   padding-bottom: 56px;
 }
 
+.member-access {
+  display: grid;
+  min-height: 100vh;
+  padding: 40px 20px;
+  place-items: center;
+}
+
+.member-access-panel {
+  width: min(100%, 520px);
+  padding-top: 34px;
+  border-top: 1px solid var(--color-line);
+}
+
+.member-access-panel h1 {
+  font-size: clamp(2.2rem, 6vw, 4.2rem);
+}
+
+.member-access-text {
+  margin: 18px 0 0;
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.6vw, 1.18rem);
+}
+
+.member-access-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.member-access[hidden],
+.members-content[hidden] {
+  display: none;
+}
+
 .accordion-list {
   border-top: 1px solid var(--color-line);
 }
@@ -472,10 +506,6 @@ h2 {
   text-transform: uppercase;
 }
 
-.placeholder-text {
-  color: var(--color-text);
-}
-
 .week-focus {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -496,7 +526,7 @@ h2 {
   border-left: 1px solid var(--color-line);
 }
 
-.week-event {
+.week-event-content {
   display: grid;
   align-content: center;
   gap: 8px;
@@ -504,20 +534,15 @@ h2 {
 
 .content-section .week-event-title {
   color: var(--color-accent);
-  font-size: clamp(1.15rem, 1.8vw, 1.35rem);
+  font-size: 1.15rem;
   font-weight: 500;
-}
-
-.week-event-time {
-  color: var(--color-text);
-  font-size: 0.98rem;
 }
 
 .week-event-description {
   max-width: 34rem;
 }
 
-.week-event p {
+.week-event-content p {
   margin: 0;
 }
 

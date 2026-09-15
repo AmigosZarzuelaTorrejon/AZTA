@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /AZTA/integrantes.html
+Disallow: /integrantes.html
