@@ -65,13 +65,33 @@
 
         <section class="home-video">
           <h2 class="home-video-title">Amigos de la Zarzuela en escena</h2>
-          <div class="video-embed">
-            <iframe
-              src="https://www.youtube.com/embed/ftmo3xXBD1U"
-              title="Actuación de Amigos de la Zarzuela de Torrejón de Ardoz"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-            ></iframe>
+          <div class="video-carousel">
+            <button
+              class="video-nav video-nav-prev"
+              type="button"
+              aria-label="Vídeo anterior"
+            >
+              ‹
+            </button>
+            <div class="video-embed">
+              <iframe
+                id="home-video-frame"
+                src="https://www.youtube.com/embed/ftmo3xXBD1U"
+                title="Actuación de Amigos de la Zarzuela de Torrejón de Ardoz"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <button
+              class="video-nav video-nav-next"
+              type="button"
+              aria-label="Vídeo siguiente"
+            >
+              ›
+            </button>
+            <p class="video-counter" aria-live="polite">
+              <span id="video-current">1</span> / 5
+            </p>
           </div>
           <a
             class="video-channel-link"

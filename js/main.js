@@ -1,4 +1,11 @@
 const WHATSAPP_URL = "https://wa.me/34620887502";
+const HOME_VIDEOS = [
+  "ftmo3xXBD1U",
+  "C0tP4zLYwJE",
+  "uqfSt2GYk9Q",
+  "m-K45hW_rNI",
+  "p1e_81nzB48",
+];
 const WEEKLY_CALENDAR_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwaK5dtcqMuVIH0tUEofI_kAVgDhHquo8_vi5Il6BN8VoBFvPzh5QpvyVpl7knU-rD_Bw/exec";
 const WEEKLY_CALENDAR_CALLBACK = "AZTAWeeklyCalendarCallback";
@@ -57,6 +64,48 @@ function initTrialForm() {
       whatsappWindow.opener = null;
     } else {
       window.location.href = url;
+    }
+  });
+}
+
+function initVideoCarousel() {
+  const frame = document.querySelector("#home-video-frame");
+  const previous = document.querySelector(".video-nav-prev");
+  const next = document.querySelector(".video-nav-next");
+  const current = document.querySelector("#video-current");
+  const carousel = document.querySelector(".video-carousel");
+
+  if (!frame || !previous || !next || !current || !carousel) return;
+
+  let index = 0;
+
+  function renderVideo() {
+    frame.src = `https://www.youtube.com/embed/${HOME_VIDEOS[index]}`;
+    current.textContent = String(index + 1);
+  }
+
+  function showPreviousVideo() {
+    index = (index - 1 + HOME_VIDEOS.length) % HOME_VIDEOS.length;
+    renderVideo();
+  }
+
+  function showNextVideo() {
+    index = (index + 1) % HOME_VIDEOS.length;
+    renderVideo();
+  }
+
+  previous.addEventListener("click", showPreviousVideo);
+  next.addEventListener("click", showNextVideo);
+
+  carousel.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      showPreviousVideo();
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      showNextVideo();
     }
   });
 }
@@ -179,5 +228,6 @@ function initMemberAccess() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initTrialForm();
+  initVideoCarousel();
   initMemberAccess();
 });
